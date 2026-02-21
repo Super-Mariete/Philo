@@ -18,7 +18,8 @@
 #include<stdlib.h>
 #include<string.h>
 
-
 void	ft_control_error(int argc, char **argv);
+long    ft_atol(const char *str);
+int	ft_isdigit(int c);
 
 #endif

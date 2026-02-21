@@ -28,7 +28,7 @@ void	ft_control_error(int argc, char **argv)
 		j = 0;
 		while (argv[i][j] != '\0')
 		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
+			if (!ft_isdigit(argv[i][j]))
 			{
 				write(2, "ERROR\n", 6);
 				exit(0);
