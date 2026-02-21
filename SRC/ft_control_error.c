@@ -14,10 +14,28 @@
 
 void	ft_control_error(int argc, char **argv)
 {
+	int	i;
+	int	j;
+
 	if (argc != 5 && argc != 6)
 	{
 		write(2, "ERROR\n", 6);
 		exit(0);
+	}
+	i = 1;
+	while(argv[i] != NULL)
+	{
+		j = 0;
+		while (argv[i][j] != '\0')
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+			{
+				write(2, "ERROR\n", 6);
+				exit(0);
+			}
+			j++;
+		}
+		i++;
 	}
 	printf("control error\n");
 	return;
