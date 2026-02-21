@@ -14,6 +14,9 @@
 
 int main(int argc, char **argv)
 {
+	t_data	data;
+
 	ft_control_error(argc, argv);
-	return(0);
+	ft_init_data(&data, argv);
+	return(EXIT_SUCCESS);
 }

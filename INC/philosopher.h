@@ -17,8 +17,19 @@
 #include<unistd.h>
 #include<stdlib.h>
 #include<string.h>
+#include<limits.h>
+
+typedef struct s_data
+{
+	int	nb_philo;
+	int	time_die;
+	int	time_eat;
+	int	time_sleep;
+	int	must_eat;
+}	t_data;
 
 void	ft_control_error(int argc, char **argv);
+void	ft_init_data(t_data *data, char **argv);
 long    ft_atol(const char *str);
 int	ft_isdigit(int c);
 

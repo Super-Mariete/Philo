@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread -g3
 SRCS = main.c \
        SRC/ft_control_error.c\
        SRC/utils_parse.c\
+       SRC/ft_init_data.c
 
 OBJS = $(SRCS:.c=.o)
 
