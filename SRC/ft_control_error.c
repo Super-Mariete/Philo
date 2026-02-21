@@ -20,7 +20,7 @@ void	ft_control_error(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 	{
 		write(2, "ERROR\n", 6);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	i = 1;
 	while(argv[i] != NULL)
@@ -28,15 +28,15 @@ void	ft_control_error(int argc, char **argv)
 		j = 0;
 		while (argv[i][j] != '\0')
 		{
-			if (!ft_isdigit(argv[i][j]))
+			if (argv[i][j] < '1' || argv[i][j] > '9')
 			{
 				write(2, "ERROR\n", 6);
-				exit(0);
+				exit(EXIT_FAILURE);
 			}
 			j++;
 		}
 		i++;
 	}
-	printf("control error\n");
+	printf("parámetros validos\n");
 	return;
 }
