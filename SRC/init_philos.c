@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_control_error.c                                 :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 20:52:00 by made-ped         ###   ########.fr       */
+/*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
+/*   Updated: 2026/02/21 20:38:22 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../INC/philosopher.h"
 
-void	ft_control_error(int argc, char **argv)
+void	assing_philo(t_philo *philo, t_data *data, int index)
 {
-	int	i;
-	int	j;
+	philo->id = index + 1;
+	philo->meals_eaten = 0;
+	philo->data = data;
+}
 
-	if (argc != 5 && argc != 6)
+void	init_philos(t_data *data)
+{
+	int i;
+
+	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!data->philos)
 	{
-		write(2, "Error arguments\n", 16);
+		write(2, "Malloc error\n", 13);
 		exit(EXIT_FAILURE);
 	}
-	i = 1;
-	while(argv[i] != NULL)
+	i = 0;
+	while(i < data->nb_philo)
 	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] < '1' || argv[i][j] > '9')
-			{
-				write(2, "Error arguments\n", 16);
-				exit(EXIT_FAILURE);
-			}
-			j++;
-		}
+		assing_philo(&data->philos[i], data, i);
 		i++;
+		printf("Philo %d  iniciado correctamente\n", i);
 	}
-	printf("parámetros validos\n");
-	return;
 }
