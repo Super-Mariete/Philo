@@ -1,42 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_control_error.c                                 :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 22:53:36 by made-ped         ###   ########.fr       */
+/*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
+/*   Updated: 2026/02/21 22:48:39 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../INC/philosopher.h"
 
-void	ft_control_error(int argc, char **argv)
+void	*philo_routine(void *arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)arg;
+	usleep(1000);
+	if(take_forks(philo))
+	{
+		philo->meals_eaten++;
+		put_forks(philo);
+	}
+	return(NULL);
+}
+
+int	create_threads(t_data *data)
 {
 	int	i;
-	int	j;
 
-	if (argc != 5 && argc != 6)
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		write(2, "Error arguments\n", 16);
-		exit(EXIT_FAILURE);
-	}
-	i = 1;
-	while(argv[i] != NULL)
-	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-			{
-				write(2, "Error arguments\n", 16);
-				exit(EXIT_FAILURE);
-			}
-			j++;
-		}
+		if(pthread_create(&data->philos[i].thread, NULL, philo_routine,
+				&data->philos[i]) != 0)
+			return (0);
 		i++;
 	}
-	printf("parámetros validos\n");
-	return;
+	i = 0;
+	while(i < data->nb_philo)
+	{
+		pthread_join(data->philos[i].thread, NULL);
+		i++;
+	}
+	return (1);
 }

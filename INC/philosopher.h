@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 20:50:16 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:31:23 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
 #include<stdlib.h>
 #include<string.h>
 #include<limits.h>
+#include<pthread.h>
 
 typedef struct s_philo
 {
 	int	id;
 	int	meals_eaten;
+	int	left_fork;
+	int	right_fork;
 	struct	s_data	*data;
+	pthread_t	thread;
 }	t_philo;
 
 typedef struct s_data
@@ -33,6 +37,7 @@ typedef struct s_data
 	int	time_eat;
 	int	time_sleep;
 	int	must_eat;
+	int	*forks;
 	t_philo	*philos;
 }	t_data;
 
@@ -43,5 +48,11 @@ int	ft_isdigit(int c);
 void	init_philos(t_data *data);
 void	assing_philo(t_philo *philo, t_data *data, int index);
 void	free_data(t_data *data);
+void	init_forks(t_data *data);
+int	simulate(t_data *data);
+int	take_forks(t_philo *philo);
+void	put_forks(t_philo *philo);
+int	create_threads(t_data *data);
+void	*philo_routine(void *arg);
 
 #endif

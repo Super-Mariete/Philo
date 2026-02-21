@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 20:38:22 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:37:17 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	assing_philo(t_philo *philo, t_data *data, int index)
 	philo->id = index + 1;
 	philo->meals_eaten = 0;
 	philo->data = data;
+	philo->left_fork = index;
+	philo->right_fork = (index + 1) % data->nb_philo;
 }
 
 void	init_philos(t_data *data)
