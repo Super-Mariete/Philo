@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 18:39:43 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/22 19:10:09 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include<string.h>
 #include<limits.h>
 #include<pthread.h>
+#include<sys/time.h>
 
 typedef struct s_philo
 {
@@ -28,6 +29,7 @@ typedef struct s_philo
 	int	right_fork;
 	struct	s_data	*data;
 	pthread_t	thread;
+	long	last_meal;
 }	t_philo;
 
 typedef struct s_data
@@ -39,6 +41,8 @@ typedef struct s_data
 	int	must_eat;
 	pthread_mutex_t	*forks;
 	t_philo	*philos;
+	long	start_time;
+	int	simulation_running;
 }	t_data;
 
 void	ft_control_error(int argc, char **argv);

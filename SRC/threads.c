@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 22:48:39 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/22 19:17:51 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ void	*philo_routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	usleep(1000);
-	if(take_forks(philo))
+	while(philo->data->simulation_running)
 	{
-		philo->meals_eaten++;
+		take_forks(philo);
+		printf("Philo %d is eating\n", philo->id);
+		usleep(philo->data->time_eat * 1000);
 		put_forks(philo);
+		printf("Philo %d is sleeping\n", philo->id);
+		usleep(philo->data->time_sleep * 1000);
+		printf("Philo %d is thinking\n", philo->id);
 	}
 	return(NULL);
 }
