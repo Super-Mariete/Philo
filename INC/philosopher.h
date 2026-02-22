@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 22:31:23 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/22 18:39:43 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_data
 	int	time_eat;
 	int	time_sleep;
 	int	must_eat;
-	int	*forks;
+	pthread_mutex_t	*forks;
 	t_philo	*philos;
 }	t_data;
 
@@ -48,7 +48,7 @@ int	ft_isdigit(int c);
 void	init_philos(t_data *data);
 void	assing_philo(t_philo *philo, t_data *data, int index);
 void	free_data(t_data *data);
-void	init_forks(t_data *data);
+int	init_forks(t_data *data);
 int	simulate(t_data *data);
 int	take_forks(t_philo *philo);
 void	put_forks(t_philo *philo);

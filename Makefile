@@ -8,8 +8,7 @@ SRCS = main.c \
        SRC/ft_init_data.c\
        SRC/init_philos.c\
        SRC/aux_funtion.c\
-       SRC/init_forks.c\
-       SRC/simulate.c\
+       SRC/forks.c\
        SRC/threads.c
 
 OBJS = $(SRCS:.c=.o)
