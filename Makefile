@@ -10,7 +10,10 @@ SRCS = main.c \
        SRC/aux_funtion.c\
        SRC/forks.c\
        SRC/threads.c\
-       SRC/time.c
+       SRC/time.c\
+       SRC/simulation.c\
+       SRC/monitor.c\
+       SRC/print_status.c
 
 OBJS = $(SRCS:.c=.o)
 

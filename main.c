@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:44:56 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 18:24:27 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/22 20:05:16 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int main(int argc, char **argv)
 	ft_init_data(&data, argv);
 	init_philos(&data);
 	init_forks(&data);
-//	if(!simulate(&data))
+	if(!init_simulation(&data))
+	{
+//	return(error_exit("Error: simulatio failed\n", 1));
+		write(2, "Error simulation failed\n", 24);
+		free_data(&data);
+		return(EXIT_FAILURE);
+	}
 	if(!create_threads(&data))
 	{
 		write(2, "Error create threads\n", 21);

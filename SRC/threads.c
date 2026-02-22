@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 19:17:51 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/22 20:06:08 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	*philo_routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->data->stop_mutex);
+	philo->last_meal = philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->stop_mutex);
 	while(philo->data->simulation_running)
 	{
 		take_forks(philo);
