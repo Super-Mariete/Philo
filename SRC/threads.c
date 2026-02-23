@@ -6,17 +6,35 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 02:11:32 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/23 03:00:14 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../INC/philosopher.h"
+
+void	*single_philo_routine(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->stop_mutex);
+	philo->last_meal = philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->stop_mutex);
+	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
+	print_status(philo, "has taken the fork");
+	while(get_simulation_state(philo->data))
+		usleep(100);
+	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
+/*	pthread_mutex_lock(&philo->data->stop_mutex);
+	philo->data->simulation_running = 0;
+	pthread_mutex_unlock(&philo->data->stop_mutex);*/
+	return (NULL);
+}
 
 void	*philo_routine(void *arg)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	if(philo->data->nb_philo == 1)
+		return(single_philo_routine(philo));
 	pthread_mutex_lock(&philo->data->stop_mutex);
 	philo->last_meal = philo->data->start_time;
 	pthread_mutex_unlock(&philo->data->stop_mutex);
