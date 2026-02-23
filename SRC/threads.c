@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 01:38:49 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:11:32 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	*philo_routine(void *arg)
 	{
 		take_forks(philo);
 		set_last_meal(philo);
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->meals_eaten++;
+		pthread_mutex_unlock(&philo->meal_mutex);
 		print_status(philo, "is eating");
 		usleep(philo->data->time_eat * 1000);
 		put_forks(philo);

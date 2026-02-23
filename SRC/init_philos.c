@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 00:08:22 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:07:34 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_philos(t_data *data)
 {
 	int i;
 
+	if(!data->must_eat)
+		data->must_eat = -1;
 	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philos)
 	{

@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 20:42:40 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:21:16 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	*monitor_routine(void *arg)
 {
 	t_data	*data;
 	int	i;
+	int	full;
 
 	data = (t_data *)arg;
 	while(get_simulation_state(data))
 	{
 		i = 0;
+		full = 1;
 		while(i < data->nb_philo)
 		{
 			if(get_time() - data->philos[i].last_meal >
@@ -30,7 +32,19 @@ void	*monitor_routine(void *arg)
 				stop_simulation(data);
 				return(NULL);
 			}
+			if(data->must_eat != -1)
+			{
+				pthread_mutex_lock(&data->philos[i].meal_mutex);
+				if(data->philos[i].meals_eaten < data->must_eat)
+					full = 0;
+				pthread_mutex_unlock(&data->philos[i].meal_mutex);
+			}
 			i++;
+		}
+		if(data->must_eat != -1 && full)
+		{
+			stop_simulation(data);
+			return (NULL);
 		}
 		usleep(100);
 	}
