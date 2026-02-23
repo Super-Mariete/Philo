@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 19:48:58 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:08:22 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_philos(t_data *data)
 	while(i < data->nb_philo)
 	{
 		assing_philo(&data->philos[i], data, i);
+		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		i++;
 		printf("Philo %d  iniciado correctamente\n", i);
 	}

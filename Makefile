@@ -13,7 +13,8 @@ SRCS = main.c \
        SRC/time.c\
        SRC/simulation.c\
        SRC/monitor.c\
-       SRC/print_status.c
+       SRC/print_status.c\
+       SRC/meal_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

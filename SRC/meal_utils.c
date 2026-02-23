@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aux_funtion.c                                      :+:      :+:    :+:   */
+/*   meal_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 20:43:58 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 01:19:35 by made-ped         ###   ########.fr       */
+/*   Created: 2026/02/23 00:09:08 by made-ped          #+#    #+#             */
+/*   Updated: 2026/02/23 00:14:56 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../INC/philosopher.h"
 
-void	free_data(t_data *data)
+void	set_last_meal(t_philo *philo)
 {
-	if(data->philos)
-		free(data->philos);
-	if(data->forks)
-		free(data->forks);
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->meal_mutex);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+long	get_last_meal(t_philo	*philo)
 {
-	size_t	i;
+	long	time;
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
+	pthread_mutex_lock(&philo->meal_mutex);
+	time = philo->last_meal;
+	pthread_mutex_unlock(&philo->meal_mutex);
+	return(time);
 }
