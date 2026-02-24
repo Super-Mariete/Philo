@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 21:47:03 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/24 02:00:59 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:47:41 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	take_forks(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 			return(0);
 		}
-		print_status(philo, "has taken a fork\n");
+		print_status(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
 		if(!get_simulation_state(philo->data))
 		{
@@ -30,7 +30,7 @@ int	take_forks(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 			return(0);
 		}	
-		print_status(philo, "has taken a fork\n");
+		print_status(philo, "has taken a fork");
 	}
 	else
 	{
@@ -40,7 +40,7 @@ int	take_forks(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
 			return(0);
 		}
-		print_status(philo, "has taken a fork\n");
+		print_status(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
 		if(!get_simulation_state(philo->data))
 		{
@@ -48,7 +48,7 @@ int	take_forks(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
 			return(0);
 		}
-		print_status(philo, "has taken a fork\n");
+		print_status(philo, "has taken a fork");
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 02:21:16 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:00:39 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,22 @@ void	*monitor_routine(void *arg)
 	t_data	*data;
 	int	i;
 	int	full;
+	long	last_meal;
+	long	time_last_meal;
 
 	data = (t_data *)arg;
+	usleep(1000);
 	while(get_simulation_state(data))
 	{
 		i = 0;
 		full = 1;
 		while(i < data->nb_philo)
 		{
-			if(get_time() - data->philos[i].last_meal >
-					data->time_die)
+			pthread_mutex_lock(&data->philos[i].meal_mutex);
+			last_meal = data->philos[i].last_meal;
+			pthread_mutex_unlock(&data->philos[i].meal_mutex);
+			time_last_meal = get_time() - last_meal;
+			if(time_last_meal > data->time_die)
 			{
 				print_status(&data->philos[i], "died");
 				stop_simulation(data);
@@ -46,7 +52,7 @@ void	*monitor_routine(void *arg)
 			stop_simulation(data);
 			return (NULL);
 		}
-		usleep(100);
+		usleep(1000);
 	}
 	return(NULL);
 }

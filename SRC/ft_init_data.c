@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:54:44 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/24 01:37:08 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:53:49 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_data(t_data *data, char **argv)
 	long	value;
 
 	i = 1;
+	data->must_eat = -1;
 	while (argv[i] != NULL)
 	{
 		value = ft_atol(argv[i]);

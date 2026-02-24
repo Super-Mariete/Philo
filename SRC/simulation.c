@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:40:53 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/22 20:28:46 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:28:08 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,17 @@ void	stop_simulation(t_data *data)
 
 int	init_simulation(t_data *data)
 {
+	int	i;
+
 	data->start_time = get_time();
+	i = 0;
+	while(i < data->nb_philo)
+	{
+		pthread_mutex_lock(&data->philos[i].meal_mutex);
+		data->philos[i].last_meal = data->start_time;
+		pthread_mutex_unlock(&data->philos[i].meal_mutex);
+		i++;
+	}
 	data->simulation_running = 1;
 	if(pthread_mutex_init(&data->stop_mutex, NULL) != 0)
 		return(0);
