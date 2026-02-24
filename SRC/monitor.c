@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/24 11:00:39 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:35:01 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void	*monitor_routine(void *arg)
 			last_meal = data->philos[i].last_meal;
 			pthread_mutex_unlock(&data->philos[i].meal_mutex);
 			time_last_meal = get_time() - last_meal;
+/*			// En monitor.c, justo antes de verificar muerte:
+			printf("[MONITOR] Philo %d: last_meal=%ld, current=%ld, diff=%ld, limit=%d\n",
+       			i + 1, last_meal, get_time(), time_last_meal, data->time_die);
+
+			if(time_last_meal > data->time_die)
+			{
+    				printf("[DEATH DETECTED] %ld > %d\n", time_last_meal, data->time_die);
+			}
+    			// ...*/
 			if(time_last_meal > data->time_die)
 			{
 				print_status(&data->philos[i], "died");

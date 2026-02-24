@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 01:59:41 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:31:35 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void    print_status(t_philo *philo, char *msg);
 void	set_last_meal(t_philo *philo);
 long	get_last_meal(t_philo *philo);
 int     ft_strcmp(const char *s1, const char *s2);
+void	precise_sleep(t_data *data, long duration_ms);
 
 #endif
