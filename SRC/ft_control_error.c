@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 22:53:36 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:33:31 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	ft_control_error(int argc, char **argv)
 		}
 		i++;
 	}
-	printf("parámetros validos\n");
+//	printf("parámetros validos\n");
 	return;
 }
