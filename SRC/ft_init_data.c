@@ -6,13 +6,13 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:54:44 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 21:31:36 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:39:06 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
 
-void	ft_init_data(t_data *data, char **argv)
+int	ft_init_data(t_data *data, char **argv)
 {
 	int		i;
 	long	value;
@@ -23,10 +23,7 @@ void	ft_init_data(t_data *data, char **argv)
 	{
 		value = ft_atol (argv[i]);
 		if (value <= 0 || value >= INT_MAX)
-		{
-			write (2, "ERROR\n", 6);
-			exit (EXIT_FAILURE);
-		}
+			return (0);
 		if (i == 1)
 			data->nb_philo = (int)value;
 		else if (i == 2)
@@ -39,4 +36,5 @@ void	ft_init_data(t_data *data, char **argv)
 			data->must_eat = (int)value;
 		i++;
 	}
+	return (1);
 }

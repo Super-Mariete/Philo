@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 21:33:13 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:35:40 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	assing_philo(t_philo *philo, t_data *data, int index)
 	philo->right_fork = (index + 1) % data->nb_philo;
 }
 
-void	init_philos(t_data *data)
+int	init_philos(t_data *data)
 {
 	int	i;
 
@@ -29,10 +29,7 @@ void	init_philos(t_data *data)
 		data->must_eat = -1;
 	data->philos = malloc (sizeof(t_philo) * data->nb_philo);
 	if (!data->philos)
-	{
-		write (2, "Malloc error\n", 13);
-		exit (EXIT_FAILURE);
-	}
+		return (0);
 	i = 0;
 	while (i < data->nb_philo)
 	{
@@ -40,4 +37,5 @@ void	init_philos(t_data *data)
 		pthread_mutex_init (&data->philos[i].meal_mutex, NULL);
 		i++;
 	}
+	return (1);
 }

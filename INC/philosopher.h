@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 22:17:02 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:39:51 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ typedef struct s_data
 	int				simulation_running;
 }	t_data;
 
-void	ft_control_error(int argc, char **argv);
-void	ft_init_data(t_data *data, char **argv);
+int		ft_control_error(int argc, char **argv);
+int		ft_init_data(t_data *data, char **argv);
 long	ft_atol(const char *str);
 int		ft_isdigit(int c);
-void	init_philos(t_data *data);
+int		init_philos(t_data *data);
 void	assing_philo(t_philo *philo, t_data *data, int index);
 void	free_data(t_data *data);
 int		init_forks(t_data *data);

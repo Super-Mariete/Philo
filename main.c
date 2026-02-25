@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:44:56 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 21:01:13 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:40:44 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,21 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	ft_control_error (argc, argv);
-	ft_init_data (&data, argv);
-	init_philos (&data);
+	if (!ft_control_error (argc, argv))
+	{
+		write (2, "Error arguments\n", 16);
+		return (EXIT_FAILURE);
+	}
+	if (!ft_init_data (&data, argv))
+	{
+		write (2, "Error limit\n", 12);
+		return (EXIT_FAILURE);
+	}
+	if (!init_philos (&data))
+	{
+		write (2, "Malloc error\n", 13);
+		return (EXIT_FAILURE);
+	}
 	if (!init_forks(&data))
 	{
 		write (2, "Error create mutex\n", 19);
