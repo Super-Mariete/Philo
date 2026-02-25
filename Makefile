@@ -1,7 +1,6 @@
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread -g3
-DFLAGS = -fsanitize=thread -g
 
 SRCS = main.c \
        SRC/ft_control_error.c\
@@ -22,10 +21,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(DFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(DFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
+	$(CC) $(DFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

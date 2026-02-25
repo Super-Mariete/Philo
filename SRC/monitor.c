@@ -6,62 +6,53 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/24 12:35:01 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:36:39 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../INC/philosopher.h"
+#include "../INC/philosopher.h"
 
 void	*monitor_routine(void *arg)
 {
 	t_data	*data;
-	int	i;
-	int	full;
+	int		i;
+	int		full;
 	long	last_meal;
 	long	time_last_meal;
 
 	data = (t_data *)arg;
-	usleep(1000);
-	while(get_simulation_state(data))
+	usleep (1000);
+	while (get_simulation_state(data))
 	{
 		i = 0;
 		full = 1;
-		while(i < data->nb_philo)
+		while (i < data->nb_philo)
 		{
-			pthread_mutex_lock(&data->philos[i].meal_mutex);
+			pthread_mutex_lock (&data->philos[i].meal_mutex);
 			last_meal = data->philos[i].last_meal;
-			pthread_mutex_unlock(&data->philos[i].meal_mutex);
+			pthread_mutex_unlock (&data->philos[i].meal_mutex);
 			time_last_meal = get_time() - last_meal;
-/*			// En monitor.c, justo antes de verificar muerte:
-			printf("[MONITOR] Philo %d: last_meal=%ld, current=%ld, diff=%ld, limit=%d\n",
-       			i + 1, last_meal, get_time(), time_last_meal, data->time_die);
-
-			if(time_last_meal > data->time_die)
+			if (time_last_meal > data->time_die)
 			{
-    				printf("[DEATH DETECTED] %ld > %d\n", time_last_meal, data->time_die);
+				print_status (&data->philos[i], "died");
+				stop_simulation (data);
+				return (NULL);
 			}
-    			// ...*/
-			if(time_last_meal > data->time_die)
+			if (data->must_eat != -1)
 			{
-				print_status(&data->philos[i], "died");
-				stop_simulation(data);
-				return(NULL);
-			}
-			if(data->must_eat != -1)
-			{
-				pthread_mutex_lock(&data->philos[i].meal_mutex);
-				if(data->philos[i].meals_eaten < data->must_eat)
+				pthread_mutex_lock (&data->philos[i].meal_mutex);
+				if (data->philos[i].meals_eaten < data->must_eat)
 					full = 0;
-				pthread_mutex_unlock(&data->philos[i].meal_mutex);
+				pthread_mutex_unlock (&data->philos[i].meal_mutex);
 			}
 			i++;
 		}
-		if(data->must_eat != -1 && full)
+		if (data->must_eat != -1 && full)
 		{
-			stop_simulation(data);
+			stop_simulation (data);
 			return (NULL);
 		}
-		usleep(1000);
+		usleep (1000);
 	}
-	return(NULL);
+	return (NULL);
 }

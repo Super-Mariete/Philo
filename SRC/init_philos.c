@@ -6,11 +6,11 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/24 01:39:45 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:33:13 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../INC/philosopher.h"
+#include "../INC/philosopher.h"
 
 void	assing_philo(t_philo *philo, t_data *data, int index)
 {
@@ -23,22 +23,21 @@ void	assing_philo(t_philo *philo, t_data *data, int index)
 
 void	init_philos(t_data *data)
 {
-	int i;
+	int	i;
 
-	if(!data->must_eat)
+	if (!data->must_eat)
 		data->must_eat = -1;
-	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
+	data->philos = malloc (sizeof(t_philo) * data->nb_philo);
 	if (!data->philos)
 	{
-		write(2, "Malloc error\n", 13);
-		exit(EXIT_FAILURE);
+		write (2, "Malloc error\n", 13);
+		exit (EXIT_FAILURE);
 	}
 	i = 0;
-	while(i < data->nb_philo)
+	while (i < data->nb_philo)
 	{
-		assing_philo(&data->philos[i], data, i);
-		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
+		assing_philo (&data->philos[i], data, i);
+		pthread_mutex_init (&data->philos[i].meal_mutex, NULL);
 		i++;
-//		printf("Philo %d  iniciado correctamente\n", i);
 	}
 }

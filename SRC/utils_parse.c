@@ -6,16 +6,16 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:54:56 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/21 20:55:01 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:49:06 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../INC/philosopher.h"
+#include "../INC/philosopher.h"
 
 long	ft_atol(const char *str)
 {
-	int	i;
-	int	sign;
+	int		i;
+	int		sign;
 	long	res;
 
 	i = 0;

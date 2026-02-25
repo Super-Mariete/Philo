@@ -6,18 +6,18 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:43:58 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/23 01:19:35 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:02:27 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../INC/philosopher.h"
+#include "../INC/philosopher.h"
 
 void	free_data(t_data *data)
 {
-	if(data->philos)
-		free(data->philos);
-	if(data->forks)
-		free(data->forks);
+	if (data->philos)
+		free (data->philos);
+	if (data->forks)
+		free (data->forks);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
