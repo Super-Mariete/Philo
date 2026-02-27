@@ -6,11 +6,24 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 22:26:51 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/27 19:24:07 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
+
+int	ft_error(char *msg)
+{
+	write (2, msg, ft_strlen(msg));
+	write (2, "\n", 1);
+	return (0);
+}
+
+int	ft_error_free(char *msg, t_data *data)
+{
+	free (data);
+	return (ft_error (msg));
+}
 
 int	ft_control_error(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:54:56 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 21:49:06 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/27 19:31:32 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,14 @@ long	ft_atol(const char *str)
 int	ft_isdigit(int c)
 {
 	return (c <= '9' && c >= '0');
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
