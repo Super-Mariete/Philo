@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/27 19:43:01 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/27 19:58:33 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ int		lock_fork(t_philo *philo, int fork_id);
 void	put_forks(t_philo *philo);
 int		create_threads(t_data *data);
 void	*philo_routine(void *arg);
+int		philo_eat(t_philo *philo);
 int		init_simulation(t_data *data);
 long	get_time(void);
 int		get_simulation_state(t_data *data);
 void	stop_simulation(t_data *data);
 void	*monitor_routine(void *arg);
+int		check_philo(t_data *data, int i, int *full);
 void	print_status(t_philo *philo, char *msg);
 void	set_last_meal(t_philo *philo);
 long	get_last_meal(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/27 19:49:35 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/27 19:54:17 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*monitor_routine(void *arg)
 	return (NULL);
 }*/
 
-static int	check_philo(t_data *data, int i, int *full)
+int	check_philo(t_data *data, int i, int *full)
 {
 	long	last_meal;
 
