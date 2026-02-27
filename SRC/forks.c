@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 21:47:03 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/27 19:42:30 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/02/27 21:00:57 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,15 @@ int	take_forks(t_philo *philo)
 	int	second;
 
 	if (philo->id % 2 == 0)
-	{first = philo->left_fork; second = philo->right_fork;}
+	{
+		first = philo->left_fork;
+		second = philo->right_fork;
+	}
 	else
-	{first = philo->right_fork; second = philo->left_fork;}
+	{
+		first = philo->right_fork;
+		second = philo->left_fork;
+	}
 	if (!lock_fork(philo, first))
 		return (0);
 	if (!lock_fork(philo, second))
@@ -84,6 +90,7 @@ int	take_forks(t_philo *philo)
 	}
 	return (1);
 }
+
 void	put_forks(t_philo *philo)
 {
 	pthread_mutex_unlock (&philo->data->forks[philo->left_fork]);
