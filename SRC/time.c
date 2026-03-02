@@ -32,6 +32,6 @@ void	precise_sleep(t_data *data, long duration_ms)
 		if ((duration_ms - (get_time () - start)) > 10)
 			usleep (500);
 		else
-			usleep (100);
+			usleep (500);
 	}
 }
