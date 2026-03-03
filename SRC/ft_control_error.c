@@ -6,43 +6,39 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/27 19:24:07 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:01:14 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
 
-int	ft_error(char *msg)
-{
-	write (2, msg, ft_strlen(msg));
-	write (2, "\n", 1);
-	return (0);
-}
-
-int	ft_error_free(char *msg, t_data *data)
-{
-	free (data);
-	return (ft_error (msg));
-}
-
-int	ft_control_error(int argc, char **argv)
+static void	destroy_mutexes(t_data *data)
 {
 	int	i;
-	int	j;
 
-	if (argc != 5 && argc != 6)
-		return (0);
-	i = 1;
-	while (argv[i] != NULL)
+	if (!data->forks)
+		return ;
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (0);
-			j++;
-		}
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
+	}
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->data_mutex);
+}
+
+int	cleanup(t_data *data, char *msg)
+{
+	if (msg)
+		fprintf(stderr, "Error: %s\n", msg);
+	if (data)
+	{
+		destroy_mutexes(data);
+		if (data->philos)
+			free(data->philos);
+		if (data->forks)
+			free(data->forks);
 	}
 	return (1);
 }

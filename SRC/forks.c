@@ -6,54 +6,12 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 21:47:03 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/27 21:00:57 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:52:56 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
 /*
-int	take_forks(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock (&philo->data->forks[philo->left_fork]);
-		if (!get_simulation_state(philo->data))
-		{
-			pthread_mutex_unlock (&philo->data->forks[philo->left_fork]);
-			return (0);
-		}
-		print_status (philo, "has taken a fork");
-		pthread_mutex_lock (&philo->data->forks[philo->right_fork]);
-		if (!get_simulation_state(philo->data))
-		{
-			pthread_mutex_unlock (&philo->data->forks[philo->right_fork]);
-			pthread_mutex_unlock (&philo->data->forks[philo->left_fork]);
-			return (0);
-		}
-		print_status (philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock (&philo->data->forks[philo->right_fork]);
-		if (!get_simulation_state(philo->data))
-		{
-			pthread_mutex_unlock (&philo->data->forks[philo->right_fork]);
-			return (0);
-		}
-		print_status (philo, "has taken a fork");
-		pthread_mutex_lock (&philo->data->forks[philo->left_fork]);
-		if (!get_simulation_state(philo->data))
-		{
-			pthread_mutex_unlock (&philo->data->forks[philo->left_fork]);
-			pthread_mutex_unlock (&philo->data->forks[philo->right_fork]);
-			return (0);
-		}
-		print_status (philo, "has taken a fork");
-	}
-	return (1);
-}
-*/
-
 int	lock_fork(t_philo *philo, int fork_id)
 {
 	pthread_mutex_lock(&philo->data->forks[fork_id]);
@@ -96,7 +54,7 @@ void	put_forks(t_philo *philo)
 	pthread_mutex_unlock (&philo->data->forks[philo->left_fork]);
 	pthread_mutex_unlock (&philo->data->forks[philo->right_fork]);
 }
-
+*/
 int	init_forks(t_data *data)
 {
 	int	i;
@@ -117,4 +75,46 @@ int	init_forks(t_data *data)
 		i++;
 	}
 	return (1);
+}
+
+int	lock_fork(t_philo *philo, pthread_mutex_t *fork)
+{
+	pthread_mutex_lock(fork);
+	if (!get_simulation_state(philo->data))
+	{
+		pthread_mutex_unlock(fork);
+		return (0);
+	}
+	print_status(philo, "has taken a fork");
+	return (1);
+}
+int	take_forks(t_philo *philo)
+{
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
+
+	if (philo->id % 2 == 0)
+	{
+		first = philo->left_fork;
+		second = philo->right_fork;
+	}
+	else
+	{
+		first = philo->right_fork;
+		second = philo->left_fork;
+	}
+	if (!lock_fork(philo, first))
+		return (0);
+	if (!lock_fork(philo, second))
+	{
+		pthread_mutex_unlock(first);
+		return (0);
+	}
+	return (1);
+}
+
+void	put_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }

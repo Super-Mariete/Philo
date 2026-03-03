@@ -6,52 +6,74 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 00:34:04 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:03:58 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
 
-int	check_philo(t_data *data, int i, int *full)
+static int	check_death(t_data *data)
 {
-	long	last_meal;
+	int	i;
 
-	pthread_mutex_lock(&data->philos[i].meal_mutex);
-	last_meal = data->philos[i].last_meal;
-	if (data->must_eat != -1 && data->philos[i].meals_eaten < data->must_eat)
-		*full = 0;
-	pthread_mutex_unlock(&data->philos[i].meal_mutex);
-	if (get_time() - last_meal > data->time_die)
+	i = 0;
+	while (i < data->nb_philo && !data->someone_dead)
 	{
-		print_status(&data->philos[i], "died");
-		stop_simulation(data);
-		return (0);
+		pthread_mutex_lock(&data->data_mutex);
+		if (timestamp() - data->philos[i].last_meal > data->time_die)
+		{
+			data->someone_dead = 1;
+			pthread_mutex_lock(&data->print);
+			printf("%ld %d died\n", timestamp() - data->start_time, i + 1);
+			pthread_mutex_unlock(&data->print);
+			pthread_mutex_unlock(&data->data_mutex);
+			return (1);
+		}
+		pthread_mutex_unlock(&data->data_mutex);
+		i++;
 	}
-	return (1);
+	return (0);
 }
 
-void	*monitor_routine(void *arg)
+static int	check_all_ate(t_data *data)
+{
+	int	i;
+	int	count;
+
+	if (data->must_eat == -1)
+		return (0);
+	i = 0;
+	count = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_lock(&data->data_mutex);
+		if (data->philos[i].meals_eaten >= data->must_eat)
+			count++;
+		pthread_mutex_unlock(&data->data_mutex);
+		i++;
+	}
+	if (count == data->nb_philo)
+	{
+		pthread_mutex_lock(&data->data_mutex);
+		data->all_ate = 1;
+		pthread_mutex_unlock(&data->data_mutex);
+		return (1);
+	}
+	return (0);
+}
+
+void	*monitor(void *arg)
 {
 	t_data	*data;
-	int		i;
-	int		full;
 
 	data = (t_data *)arg;
-	usleep(1000);
-	while (get_simulation_state(data))
+	while (!data->all_ate && !data->someone_dead)
 	{
-		i = -1;
-		full = 1;
-		while (++i < data->nb_philo)
-			if (!check_philo(data, i, &full))
-				return (NULL);
-		if (data->must_eat != -1 && full)
-		{
-			stop_simulation(data);
-			usleep (1000);
-			return (NULL);
-		}
-//		usleep(1000);
+		if (check_death(data))
+			break ;
+		if (check_all_ate(data))
+			break ;
+		usleep(500);
 	}
 	return (NULL);
 }

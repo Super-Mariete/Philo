@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:05:00 by made-ped          #+#    #+#             */
-/*   Updated: 2026/02/25 21:47:36 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:24:16 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ long	get_time(void)
 void	precise_sleep(t_data *data, long duration_ms)
 {
 	long	start;
+	long	remaining;
+
+	start = get_time();
+	while (get_time() - start < duration_ms)
+	{
+		if (!get_simulation_state(data))
+			break ;
+		remaining = duration_ms - (get_time() - start);
+		if (remaining > 5)
+			usleep(500);
+		else
+			usleep(100);
+	}
+}
+/*
+void	precise_sleep(t_data *data, long duration_ms)
+{
+	long	start;
 
 	start = get_time ();
 	while (get_time() - start < duration_ms)
@@ -34,4 +52,4 @@ void	precise_sleep(t_data *data, long duration_ms)
 		else
 			usleep (500);
 	}
-}
+}*/

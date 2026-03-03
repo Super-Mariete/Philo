@@ -4,16 +4,9 @@ CFLAGS = -Wall -Wextra -Werror -pthread -g3
 
 SRCS = main.c \
        SRC/ft_control_error.c\
-       SRC/utils_parse.c\
-       SRC/ft_init_data.c\
        SRC/init_philos.c\
-       SRC/aux_funtion.c\
-       SRC/forks.c\
        SRC/threads.c\
-       SRC/time.c\
-       SRC/simulation.c\
        SRC/monitor.c\
-       SRC/print_status.c\
        SRC/meal_utils.c
 
 OBJS = $(SRCS:.c=.o)
