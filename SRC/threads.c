@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:20:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 14:05:30 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 21:13:04 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	eat(t_philo *philo)
 
 	data = philo->data;
 	pthread_mutex_lock(&data->forks[philo->left_fork]);
-	print_action(data, philo->id, "has taken a fork");
+	print_status(data, philo->id, "has taken a fork");
 	if (philo->left_fork == philo->rigth_fork)
 	{
 		while (!data->someone_dead)
@@ -27,10 +27,10 @@ static void	eat(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(&data->forks[philo->rigth_fork]);
-	print_action(data, philo->id, "has taken a fork");
+	print_status(data, philo->id, "has taken a fork");
 	pthread_mutex_lock(&data->data_mutex);
-	print_action(data, philo->id, "is eating");
-	philo->last_meal = timestamp();
+	print_status(data, philo->id, "is eating");
+	philo->last_meal = get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&data->data_mutex);
 	precise_usleep(data->time_eat, data);
@@ -43,7 +43,7 @@ static void	thinking(t_philo *philo)
 	t_data	*data;
 
 	data = philo->data;
-	print_action(data, philo->id, "is thinking");
+	print_status(data, philo->id, "is thinking");
 }
 
 static void	sleeping_philo(t_philo *philo)
@@ -51,7 +51,7 @@ static void	sleeping_philo(t_philo *philo)
 	t_data	*data;
 
 	data = philo->data;
-	print_action(data, philo->id, "is sleeping");
+	print_status(data, philo->id, "is sleeping");
 	precise_usleep(data->time_sleep, data);
 }
 

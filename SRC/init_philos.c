@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 14:03:02 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 21:04:27 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ static int	parse_and_fill(t_data *data, int argc, char **argv)
 int	init_data(t_data *data, int argc, char **argv)
 {
 	if (parse_and_fill(data, argc, argv))
-		return (cleanup(NULL, "Invalid arguments"));
+		return (clean(NULL, "Invalid arguments"));
 	if (alloc_everything(data))
-		return (cleanup(NULL, "Malloc error"));
+		return (clean(NULL, "Malloc error"));
 	if (init_mutexes(data))
-		return (cleanup(data, "Mutex init error"));
+		return (clean(data, "Mutex init error"));
 	init_philos(data);
 	return (0);
 }

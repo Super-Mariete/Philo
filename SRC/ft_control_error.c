@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 14:01:14 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 21:04:04 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	destroy_mutexes(t_data *data)
 	pthread_mutex_destroy(&data->data_mutex);
 }
 
-int	cleanup(t_data *data, char *msg)
+int	clean(t_data *data, char *msg)
 {
 	if (msg)
 		fprintf(stderr, "Error: %s\n", msg);

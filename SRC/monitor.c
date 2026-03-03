@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 20:31:43 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 14:03:58 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/03 21:05:26 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static int	check_death(t_data *data)
 	while (i < data->nb_philo && !data->someone_dead)
 	{
 		pthread_mutex_lock(&data->data_mutex);
-		if (timestamp() - data->philos[i].last_meal > data->time_die)
+		if (get_time() - data->philos[i].last_meal > data->time_die)
 		{
 			data->someone_dead = 1;
 			pthread_mutex_lock(&data->print);
-			printf("%ld %d died\n", timestamp() - data->start_time, i + 1);
+			printf("%ld %d died\n", get_time() - data->start_time, i + 1);
 			pthread_mutex_unlock(&data->print);
 			pthread_mutex_unlock(&data->data_mutex);
 			return (1);
