@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 20:23:06 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 21:04:27 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:08:19 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	init_philos(t_data *data)
 
 static int	parse_and_fill(t_data *data, int argc, char **argv)
 {
-	if (argc < 5 || argc > 6)
+	if (validate_args(argc, argv))
 		return (1);
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_die = ft_atoi(argv[2]);

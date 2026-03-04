@@ -7,7 +7,8 @@ SRCS = main.c \
        SRC/init_philos.c\
        SRC/threads.c\
        SRC/monitor.c\
-       SRC/meal_utils.c
+       SRC/utils.c\
+       SRC/time_print.c
 
 OBJS = $(SRCS:.c=.o)
 

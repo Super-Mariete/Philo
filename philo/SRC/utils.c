@@ -1,40 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   meal_utils.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 00:09:08 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 21:05:02 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:42:09 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/philosopher.h"
 
-long	get_time(void)
+static int	is_valid_number(char *str)
 {
-	struct timeval	tv;
+	int	i;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	i = 0;
+	if (!str || !str[0])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void	precise_usleep(long time, t_data *data)
+int	validate_args(int argc, char **argv)
 {
-	long	start;
+	int i;
 
-	start = get_time();
-	while (!data->someone_dead && (get_time() - start) < time)
-		usleep(200);
-}
-
-void	print_status(t_data *data, int id, char *str)
-{
-	pthread_mutex_lock(&data->print);
-	if (!data->someone_dead && !data->all_ate)
-		printf("%ld %d %s\n", get_time() - data->start_time, id + 1, str);
-	pthread_mutex_unlock(&data->print);
+	if (argc < 5 || argc > 6)
+		return (1);
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_valid_number(argv[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_atoi(const char *str)

@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/03 21:04:04 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:23:02 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,16 @@ static void	destroy_mutexes(t_data *data)
 int	clean(t_data *data, char *msg)
 {
 	if (msg)
-		fprintf(stderr, "Error: %s\n", msg);
+	{
+		int i;
+
+		i = 0;
+		while(msg[i])
+			i++;
+		write(2, "Error: ", 7);
+		write(2, msg, i);
+		write(2, "\n", 1);
+	}
 	if (data)
 	{
 		destroy_mutexes(data);
@@ -40,5 +49,7 @@ int	clean(t_data *data, char *msg)
 		if (data->forks)
 			free(data->forks);
 	}
-	return (1);
+	if (msg)
+		return (1);
+	return (0);
 }
