@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:42:35 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/04 18:07:44 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 19:11:50 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void					*routine(void *arg);
 void					*monitor(void *arg);
 int						clean(t_data *data, char *msg);
 int						validate_args(int argc, char **argv);
+int						should_stop(t_data *data);
+
 
 #endif
