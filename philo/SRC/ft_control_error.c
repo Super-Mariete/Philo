@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:48:28 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/04 18:23:02 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 20:46:16 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ static void	destroy_mutexes(t_data *data)
 
 int	clean(t_data *data, char *msg)
 {
+	int	i;
+
 	if (msg)
 	{
-		int i;
-
 		i = 0;
-		while(msg[i])
+		while (msg[i])
 			i++;
-		write(2, "Error: ", 7);
-		write(2, msg, i);
-		write(2, "\n", 1);
+		write (2, "Error: ", 7);
+		write (2, msg, i);
+		write (2, "\n", 1);
 	}
 	if (data)
 	{

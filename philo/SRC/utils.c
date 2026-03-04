@@ -6,7 +6,7 @@
 /*   By: made-ped <made-ped@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 00:09:08 by made-ped          #+#    #+#             */
-/*   Updated: 2026/03/04 18:42:09 by made-ped         ###   ########.fr       */
+/*   Updated: 2026/03/04 20:45:37 by made-ped         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_valid_number(char *str)
 
 int	validate_args(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	if (argc < 5 || argc > 6)
 		return (1);
